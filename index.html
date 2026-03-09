@@ -1,0 +1,47 @@
+<!-- login -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Github Issue Tracker</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+</head>
+
+<body class="bg-gray-100 flex items-center justify-center">
+
+    <div class="card w-96 bg-white shadow-xl p-6">
+        <div class="text-center items-center">
+            <img src="./B13-A5-Github-Issue-Tracker/assets/github-logo.png" alt="" class="w-8 mx-auto mb-3">
+            <h1 class="text-2xl font-bold">GitHub Issues Tracker</h1>
+            <p class="text-gray-500">Sign in to manage your issues</p>
+        </div>
+
+        <div class="mt-6">
+            <label class="label text-[18px] text-black font-bold">Username</label>
+            <input id="username" type="text" placeholder="Enter Username" class="input border w-full">
+
+            <p class="text-sm text-[#4A00FF]">Default: admin</p>
+
+            <label class="label mt-3 text-[18px] text-black font-bold">Password</label>
+            <input id="password" type="password" placeholder="Enter Password" class="input border w-full">
+
+            <p class="text-sm text-[#4A00FF]">Default: admin123</p>
+
+            <button onclick="login()" class="btn btn-primary w-full mt-5 bg-[#4A00FF] font-bold">Sign In</button>
+
+            <p class="text-center mt-2">Demo Credentials :</p>
+            <div class="text-center mt-2 text-sm bg-[#F8FAFC] p-3.5">
+
+                <p class="font-bold">Username: admin</p>
+                <p class="font-bold">Password: admin123</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
