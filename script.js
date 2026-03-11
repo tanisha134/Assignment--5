@@ -135,3 +135,65 @@ function displayIssues(type) {
     })
 }
 
+// ------------------Modal-----------------
+
+function openModal(id){
+
+    const issue = allIssues.find(i=>i.id===id) 
+
+    const modal = document.getElementById("issueModal")
+    const content = document.getElementById("modalContent")
+
+    const labels = (issue.labels || []).map(label=> `<span class = "badge badge-outline"> ${label}</span>`.join(""))
+
+    content.innerHTML = `
+    
+    <h3 class= "text-xl font-bold mb-2">${issue.title}</h3>
+
+    <div class= "flex items-center gap-2 mb-3">
+
+    <span class = "badge ${issue.status === "open"? "bg-green-100 text-green-700": "bg-purple-100 text-purple-700"}">
+    ${issue.status}
+    </span>
+
+    <span class = "text-sm text-gray-500">• Opened by ${issue.author} ${issue.createdAt?.slice(0,10)}
+    </span>
+
+    </div>
+
+    <div class = "flex gap-2 mb-4">
+
+    ${issue.labels?.includes("bug")?`<span class="badge bg-red-100       text-red-700">bug</span>` : ""}
+
+    ${issue.labels?.includes("help wanted")? `<span class = "badge bg-yellow-100 text-yellow-600">help wanted</span>` : ""}
+
+    ${issue.labels?.includes("enhancement")? `<span class = "badge bg-green-100 text-green-600">enhancement</span>` : ""}
+
+    </div>
+
+    <p class = "mb-4 text-gray-600">${issue.description}</p>
+
+    <div class = "grid grid-cols-2 gap-4 mb-5">
+
+    <div>
+    <p class = "text-sm text-gray-500">Assignee:</p>
+    <p class = "font-semibold">${issue.author}</p>
+    </div>
+
+    <div>
+    <p class = "text-sm text-gray-500">Priority:</p>
+
+    <span class = "badge ${issue.priority === "high"? "bg-red-100 text-red-700": issue.priority === "medium"? "bg-yellow-100 text-yellow-700": "bg-gray-200 text-gray-700"}">${issue.priority}</span>
+
+    </div>
+
+    </div>
+
+    <button onclick = "document.getElementById('issueModal').close()"class ="btn bg-blue-600 text-white">Close</button>
+
+    `
+    modal.showModal?.() || modal.setAttribute("open","true")
+}
+
+document.body.classList.add("modal-open")
+
