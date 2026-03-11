@@ -29,7 +29,7 @@ async function loadIssues(type="all") {
 
     setActiveTab(type)
 
-    const res = await fetch("https://phi-lab-server.vercel.app/api/v1/lab/issues")
+   const res = await fetch("https://corsproxy.io/?https://phi-lab-server.vercel.app/api/v1/lab/issues")
 
     const result = await res.json()
 
@@ -69,7 +69,7 @@ function displayIssues(type) {
     }
 
     if(type === "close"){
-        filtered = allIssues.filter(issue=> issue.status === "close")
+        filtered = allIssues.filter(issue=> issue.status === "closed")
     }
 
     // update header+count
@@ -96,7 +96,7 @@ function displayIssues(type) {
         ? "border-t-4 border-green-500"
         : "border-t-4 border-purple-500"
 
-        container.innerHTML +=`<div onclick= "openModal(${issue.id}" class = "card bg-white shadow-md hover:shadow-xl transition cursor-pointer p-4 ${borderColor}">
+        container.innerHTML +=`<div onclick= "openModal(${issue.id})" class = "card bg-white shadow-md hover:shadow-xl transition cursor-pointer p-4 border-t-4 ${borderColor}">
 
         <div class= "flex justify-between items-center mb-2">
 
@@ -127,7 +127,7 @@ function displayIssues(type) {
 
         <span>#${issue.id} ${issue.author}</span>
 
-        <span>#${issue.createdAt?.slice(0.10)}</span>
+        <span>${issue.createdAt?.slice(0,10)}</span>
 
         </div>
 
@@ -144,7 +144,7 @@ function openModal(id){
     const modal = document.getElementById("issueModal")
     const content = document.getElementById("modalContent")
 
-    const labels = (issue.labels || []).map(label=> `<span class = "badge badge-outline"> ${label}</span>`.join(""))
+    const labels = (issue.labels || []).map(label => `<span class="badge badge-outline">${label}</span>`).join("")
 
     content.innerHTML = `
     
@@ -156,14 +156,14 @@ function openModal(id){
     ${issue.status}
     </span>
 
-    <span class = "text-sm text-gray-500">• Opened by ${issue.author} ${issue.createdAt?.slice(0,10)}
+    <span class = "text-sm text-gray-500">• Opened by ${issue.author} ${issue.createdAt?.slice(0 ,10)}
     </span>
 
     </div>
 
     <div class = "flex gap-2 mb-4">
 
-    ${issue.labels?.includes("bug")?`<span class="badge bg-red-100       text-red-700">bug</span>` : ""}
+    ${issue.labels?.includes("bug")?`<span class="badge bg-red-100 text-red-700">bug</span>` : ""}
 
     ${issue.labels?.includes("help wanted")? `<span class = "badge bg-yellow-100 text-yellow-600">help wanted</span>` : ""}
 
@@ -221,16 +221,39 @@ function displaySearch(list){
         const borderColor = issue.status === "open"? "border-green-500": "border-purple-500"
 
         container.innerHTML += `
-        <div onclick - "openModal(${issue.id})" class = "card bg-base-100 shadow-lg hover:shadow-2xl transition border-t-4 ${borderColor} cursor-pointer">
+        <div onclick= "openModal(${issue.id})" class = "card bg-white shadow-md hover:shadow-xl transition border-t-4 p-4 ${borderColor} cursor-pointer">
 
-        <div class= "card-body">
+        <div class= "flex justify-between items-center mb-2">
 
-        <h2 class= "font-bold">${issue.title}</h2>
+        <span class =" badge ${issue.priority === "high"? "bg-red-100 text-red-700": issue.priority === "medium"? "bg-yellow-100 text-yellow-600": "bg-gray-200 text-gray-700"}">
+        ${issue.priority}
+        </span>
+        </div>
 
-        <p class= "text-sm text-gray-500">${issue.description?.slice(0,80)}</p>
+        <h2 class= "font-semibold text-md mb-1">${issue.title}</h2>
+
+        <p class= "text-sm text-gray-500 mb-3">${issue.description?.slice(0,80)}</p>
+
+        <div class = "flex gap-2 mb-3">
+        
+        ${issue.labels?.includes("bug")? `<span class = "badge bg-red-100 text-red-700">bug</span>`: ""}
+
+        ${issue.labels?.includes("help wanted")?`<span class = "badge bg-yellow-100 text-yellow-600">help wanted</span>`: ""}
+        
+        ${issue.labels?.includes("enhancement")?`<span class = "badge bg-green-100 text-green-700">enhancement</span>`: ""}
 
         </div>
 
+        <hr class = "mb-2">
+
+        <div class = "flex justify-between text-xs text-gray-500">
+
+        <span>#${issue.id} ${issue.author}</span>
+
+        <span>${issue.createdAt?.slice(0,10)}</span>
+
+        </div>
+        
         </div>
 
         `
