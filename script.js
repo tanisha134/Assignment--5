@@ -54,3 +54,23 @@ function setActiveTab(type) {
     document.getElementById(`tab-${type}`).classList.add("bg-blue-600", "text-white")
 
 }
+
+// Display issues
+
+function displayIssues(type) {
+    const container = document.getElementById("issuesContainer")
+
+    container.innerHTML = ""
+
+    let filtered = allIssues
+
+    if(type === "open"){
+        filtered = allIssues.filter(issue=> issue.status === "open")
+    }
+
+    if(type === "close"){
+        filtered = allIssues.filter(issue=> issue.status === "close")
+    }
+
+    
+}
