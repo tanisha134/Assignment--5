@@ -72,5 +72,19 @@ function displayIssues(type) {
         filtered = allIssues.filter(issue=> issue.status === "close")
     }
 
-    
+    // update header+count
+
+    const title = document.getElementById("issueTitle")
+
+    if(type === "all"){
+        title.innerHTML = `All Issues (${filtered.length})`
+    }
+
+    if(type === "open"){
+        title.innerHTML = `Open Issues (${filtered.length})`
+    }
+
+    if(type === "close"){
+        title.innerHTML = `Close Issues (${filtered.length})`
+    }
 }
