@@ -232,7 +232,16 @@ function displaySearch(list){
         </div>
 
         </div>
-        
+
         `
     })
+}
+
+
+// page load
+
+window.onload = ()=>{
+    if(document.getElementById("issuesContainer")){
+        loadIssues("all")
+    }
 }
