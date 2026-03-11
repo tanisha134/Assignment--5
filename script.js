@@ -197,3 +197,42 @@ function openModal(id){
 
 document.body.classList.add("modal-open")
 
+
+// search
+
+function searchIssues() {
+
+    const keyword = document.getElementById("searchInput").value.toLowerCase()
+
+    const filtered = allIssues.filter(issue => issue.title.toLowerCase().includes(keyword)
+    )
+
+    displaySearch(filtered)
+
+}
+
+function displaySearch(list){
+
+    const container = document.getElementById("issuesContainer")
+
+    container.innerHTML = ""
+
+    list.forEach(issue =>{
+        const borderColor = issue.status === "open"? "border-green-500": "border-purple-500"
+
+        container.innerHTML += `
+        <div onclick - "openModal(${issue.id})" class = "card bg-base-100 shadow-lg hover:shadow-2xl transition border-t-4 ${borderColor} cursor-pointer">
+
+        <div class= "card-body">
+
+        <h2 class= "font-bold">${issue.title}</h2>
+
+        <p class= "text-sm text-gray-500">${issue.description?.slice(0,80)}</p>
+
+        </div>
+
+        </div>
+        
+        `
+    })
+}
