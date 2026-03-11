@@ -33,5 +33,24 @@ async function loadIssues(type="all") {
 
     const result = await res.json()
 
+//take 50 issues
+allIssues = (result.data || []).slice(0, 50)
+
+displayIssues(type)
+
+document.getElementById("issuesCount").innerText = allIssues.length
+
 }
 
+// Active tab
+
+function setActiveTab(type) {
+    const tabs = document.querySelectorAll(".tab-btn")
+
+    tabs.forEach(tab=>{
+        tab.classList.remove("bg-blue-500", "text-white")
+    })
+
+    document.getElementById(`tab-${type}`).classList.add("bg-blue-600", "text-white")
+
+}
